@@ -10,14 +10,40 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    # Variables de entorno para CI/tests
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      REDIS_URL: ${{ secrets.REDIS_URL }}
-      FEATURE_ANALYTICS: ${{ secrets.FEATURE_ANALYTICS }}
-      LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
-      NODE_ENV: ${{ secrets.NODE_ENV }}
-      PORT: ${{ secrets.PORT }}
-      RATE_LIMIT_ENABLED: ${{ secrets.RATE_LIMIT_ENABLED }}
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/analytics
+      REDIS_URL: redis://redis:6379
+      FEATURE_ANALYTICS: true
+      LOG_LEVEL: info
+      NODE_ENV: test
+      PORT: 3000
+      RATE_LIMIT_ENABLED: true
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: analytics
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d analytics"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout repository
@@ -45,4 +71,3 @@ jobs:
 
       - name: Run integration tests
         run: npm run test:integration
-        
