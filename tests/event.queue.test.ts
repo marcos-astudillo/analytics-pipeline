@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { EventQueueService } from "../src/services/event.queue";
+import { redis } from "../src/config/redis";
 
 describe("EventQueueService", () => {
   const queue = new EventQueueService();
@@ -10,6 +11,14 @@ describe("EventQueueService", () => {
     ts: new Date().toISOString(),
     props: { path: "/home" },
   };
+
+  beforeAll(async () => {
+    await redis.del("events_queue"); // limpia la cola
+  });
+
+  afterAll(async () => {
+    await redis.del("events_queue"); // limpia al final
+  });
 
   it("should enqueue and dequeue an event", async () => {
     await queue.enqueue(sampleEvent);
