@@ -5,10 +5,12 @@ import eventRoutes from "./routes/event.routes";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
 import metricsRoutes from "./routes/metrics.routes";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use(eventRoutes);
