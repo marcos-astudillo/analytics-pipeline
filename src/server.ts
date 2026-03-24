@@ -1,14 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
 import { requestLogger } from "./middlewares/requestLogger";
-
+import eventRoutes from "./routes/event.routes";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
 
 dotenv.config();
 
 const app = express();
-app.use(requestLogger);
-
 app.use(express.json());
+app.use(requestLogger);
+app.use(eventRoutes);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/health", (_, res) => {
   res.status(200).json({ status: "ok" });
