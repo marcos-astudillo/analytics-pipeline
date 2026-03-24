@@ -8,20 +8,19 @@ const options = {
       title: "Analytics Pipeline API",
       version: "1.0.0",
       description: `
-This API collects events from multiple producers, stores them, and exposes aggregated metrics.
-
-GitHub: https://github.com/marcos-astudillo/analitics-pipeline
-Portfolio: https://www.marcosastudillo.com
+        Analytics Pipeline backend.
+        Collects events, processes metrics, and provides daily aggregates.
+        GitHub: https://github.com/marcos-astudillo/analitics-pipeline
+        Portfolio: https://www.marcosastudillo.com
       `,
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "Local dev server",
+        url: process.env.BASE_URL || "http://localhost:3000",
       },
     ],
   },
-  apis: ["./src/routes/*.ts"],
+  apis: ["./src/routes/*.ts", "./src/models/*.ts"],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

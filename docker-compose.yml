@@ -17,27 +17,23 @@ services:
       - "6379:6379"
 
   api:
-    build: .
+    build: ./docker/api
     container_name: analytics-api
-    command: npm run dev
     ports:
       - "3000:3000"
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/analytics
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      REDIS_URL: redis://redis:6379
     depends_on:
       - postgres
       - redis
 
   worker:
-    build: .
+    build: ./docker/worker
     container_name: analytics-worker
-    command: ts-node src/worker/event.processor.ts
     environment:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/analytics
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      REDIS_URL: redis://redis:6379
     depends_on:
       - postgres
       - redis
