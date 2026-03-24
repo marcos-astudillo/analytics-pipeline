@@ -5,7 +5,7 @@ const EVENT_QUEUE = "events_queue";
 
 export class EventQueueService {
   async enqueue(event: EventInput) {
-    // guardamos evento como JSON en Redis list
+    // Store the event as JSON in a Redis list.
     await redis.rpush(EVENT_QUEUE, JSON.stringify(event));
   }
 

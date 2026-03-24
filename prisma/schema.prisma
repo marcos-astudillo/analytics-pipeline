@@ -20,3 +20,12 @@ model RawEvent {
   @@index([type])
   @@index([timestamp])
 }
+
+model AggDailyMetrics {
+  id    String   @id @default(uuid())
+  date  DateTime
+  type  String
+  value Int
+
+  @@unique([date, type], name: "date_type")
+}
