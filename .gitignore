@@ -9,3 +9,4 @@ coverage/
 .idea/
 *.tsbuildinfo
 coverage
+/src/generated/prisma

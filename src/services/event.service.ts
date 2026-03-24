@@ -1,8 +1,12 @@
 import { EventInput } from "../models/event.schema";
+import { EventRepository } from "../repositories/event.repository";
+
+const eventRepository = new EventRepository();
 
 export class EventService {
   async ingestEvent(event: EventInput): Promise<void> {
-    // Por ahora solo log (luego irá al Event Bus)
-    console.log("Event received:", event);
+    await eventRepository.save(event);
+
+    console.log("Event persisted:", event.event_id);
   }
 }
