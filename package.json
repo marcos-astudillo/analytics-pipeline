@@ -10,7 +10,9 @@
     "test:integration": "vitest run tests/integration",
     "build": "tsc",
     "start": "node dist/src/server.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "migrate:start": "npx prisma migrate deploy && npm run start"
+
   },
   "keywords": [],
   "author": "",
