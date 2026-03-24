@@ -71,8 +71,5 @@ jobs:
       - name: Typecheck
         run: npm run typecheck || echo "No typecheck script"
 
-      - name: Run unit tests
-        run: npm run test:unit
-
-      - name: Run integration tests
-        run: npm run test:integration
+      - name: Run tests
+        run: npm test
