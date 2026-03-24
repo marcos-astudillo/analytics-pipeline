@@ -13,11 +13,11 @@ describe("EventQueueService", () => {
   };
 
   beforeAll(async () => {
-    await redis.del("events_queue"); // limpia la cola
+    await redis.del("events_queue");
   });
 
   afterAll(async () => {
-    await redis.del("events_queue"); // limpia al final
+    await redis.del("events_queue");
   });
 
   it("should enqueue and dequeue an event", async () => {
