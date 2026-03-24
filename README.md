@@ -7,7 +7,6 @@
 ![PostgreSQL](https://img.shields.io/badge/database-postgresql-blue)
 ![License](https://img.shields.io/github/license/marcos-astudillo/analitics-pipeline)
 ![API Status](https://img.shields.io/badge/API-live-success)
-![Architecture](https://img.shields.io/badge/system-design-documented-blue)
 
 Production-ready analytics backend built with **Node.js**, **TypeScript**, **Express**, **PostgreSQL**, **Redis**, and **Prisma**.
 
@@ -37,6 +36,23 @@ This service is deployed on Railway and exposes public documentation and health 
 [![Swagger UI](https://img.shields.io/badge/Swagger-UI-85EA2D?style=for-the-badge&logo=swagger)](http://localhost:3000/api-docs)
 [![Health Check](https://img.shields.io/badge/Health-Check-success?style=for-the-badge&logo=railway)](http://localhost:3000/health)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-JSON-blue?style=for-the-badge&logo=openapiinitiative)](http://localhost:3000/openapi.json)
+
+---
+
+## Swagger Screenshots
+
+### GET /v1/metrics
+![Swagger GET](docs/images/swagger-ui-Get1.png)
+
+### POST /v1/events
+![Swagger POST 1](docs/images/swagger-ui-Post1.png)
+![Swagger POST 2](docs/images/swagger-ui-Post2.png)
+
+### Railway Deployment
+![Railway](docs/images/railway.png)
+
+### Swagger UI Overview
+![Swagger UI](docs/images/swagger-ui.png)
 
 ---
 
