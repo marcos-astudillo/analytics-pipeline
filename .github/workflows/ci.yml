@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-    
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: analytics
         ports:
-          - 5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -26,10 +26,11 @@ jobs:
       redis:
         image: redis:7
         ports:
-          - 6379
+          - 6379:6379
     env:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/analytics
       REDIS_URL: redis://redis:6379
+
     steps:
       - uses: actions/checkout@v3
 
@@ -43,10 +44,6 @@ jobs:
 
       - name: Generate Prisma client
         run: npx prisma generate
-      
-      - name: Test DB connection
-        run: |
-          npx prisma db pull
 
       - name: Apply database migrations
         run: npx prisma migrate deploy
