@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn src/server.ts",
     "test": "vitest run",
+    "test:unit": "vitest run tests/unit",    "test:integration": "vitest run tests/integration",
     "build": "tsc",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit"
