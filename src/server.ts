@@ -4,6 +4,7 @@ import { requestLogger } from "./middlewares/requestLogger";
 import eventRoutes from "./routes/event.routes";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
+import metricsRoutes from "./routes/metrics.routes";
 
 dotenv.config();
 
@@ -11,6 +12,8 @@ const app = express();
 app.use(express.json());
 app.use(requestLogger);
 app.use(eventRoutes);
+app.use(metricsRoutes);
+
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
