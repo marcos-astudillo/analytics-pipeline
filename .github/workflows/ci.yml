@@ -41,15 +41,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Wait for Postgres
-        run: |
-          for i in {1..20}; do
-            nc -z postgres 5432 && echo "Postgres is up!" && exit 0
-            echo "Waiting for Postgres..."
-            sleep 3
-          done
-          echo "Postgres did not start in time." && exit 1
-
       - name: Generate Prisma client
         run: npx prisma generate
       
