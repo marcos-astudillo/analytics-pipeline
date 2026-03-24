@@ -11,7 +11,7 @@ const options = {
         Analytics Pipeline backend.
         Collects events, processes metrics, and provides daily aggregates.
         GitHub: https://github.com/marcos-astudillo/analytics-pipeline
-        Portfolio: https://www.marcosastudillo.com
+        Portfolio: https://www.marcosastudillo.com 
       `,
     },
     servers: [
