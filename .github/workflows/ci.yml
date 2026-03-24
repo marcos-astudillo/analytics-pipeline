@@ -9,15 +9,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    env:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/analytics
-      REDIS_URL: redis://redis:6379
-      FEATURE_ANALYTICS: true
-      LOG_LEVEL: info
-      NODE_ENV: test
-      PORT: 3000
-      RATE_LIMIT_ENABLED: true
-
     services:
       postgres:
         image: postgres:15
@@ -43,6 +34,15 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/analytics
+      REDIS_URL: redis://localhost:6379
+      FEATURE_ANALYTICS: true
+      LOG_LEVEL: info
+      NODE_ENV: test
+      PORT: 3000
+      RATE_LIMIT_ENABLED: true
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -54,6 +54,13 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
 
       - name: Generate Prisma client
         run: npx prisma generate
